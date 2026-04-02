@@ -8,8 +8,10 @@ $(function () {
     let currPath = '';
     let folderId = '';
 
+    // Hide the processing div at startup.
     $('#processing').hide();
 
+    // Create the treeview
     $('#tree').tree();
 
     $('#tree').on('tree.click', function (e) {
@@ -18,6 +20,7 @@ $(function () {
         updateFileList(e.node.id, e.node.path);
     });
 
+    // Upload Dialog events
     $('#upload-file-dialog').on('click', function () {
         if (currPath === '') {
             alert('Select a folder to upload a file');
@@ -57,8 +60,9 @@ $(function () {
         }
     })
 
+    // Search dialog events
     $('#search-file-dialog').on('click', function () {
-        $('#search-file').val('');
+        $('#search-files').val('');
         searchModal.showModal();
     })
 
@@ -86,19 +90,8 @@ $(function () {
                     clear();
                     const fileListContainer = $('#file-list');
                     fileListContainer.empty();
-                    let totalBytes = 0
                     if (result.length > 0) {
-                        result.forEach(function (file) {
-                            fileListContainer
-                                .append($('<div>')
-                                    .append($('<a>', {
-                                        text: file.name,
-                                        href: '/Files/DownloadFile?path=' + encodeURIComponent(file.path)
-                                    }))
-                                )
-                                .append($('<div>').text(file.size + ' bytes'))
-                            totalBytes += file.size;
-                        });
+                        populateFileList(result);
                         $('#file-count').text('results: ' + result.length + ' files');
                     } else {
                         fileListContainer.append('No Files Found');
@@ -122,26 +115,15 @@ $(function () {
                 currPath = path;
                 $('#folder-path').text('Selected: \\' + path);
                 $('#upload-path').text('\\' + path);
+                $('#file-list').empty();
 
-                const fileListContainer = $('#file-list');
-                fileListContainer.empty();
-                let totalBytes = 0
                 if (result.length > 0) {
-                    result.forEach(function (file) {
-                        fileListContainer
-                            .append($('<div>')
-                                .append($('<a>', {
-                                    text: file.name,
-                                    href: '/Files/DownloadFile?path=' + encodeURIComponent(file.path)
-                                }))
-                            )
-                            .append($('<div>').text(file.size + ' bytes'))
-                        totalBytes += file.size;
-                    });
+                    const totalBytes = populateFileList(result);
+
                     $('#folder-size').text(totalBytes + ' bytes');
                     $('#file-count').text(result.length + ' files');
                 } else {
-                    fileListContainer.append('No Files');
+                    $('#file-list').append('No Files');
                     $('#folder-size').text('');
                     $('#file-count').text('');
                 }
@@ -150,6 +132,23 @@ $(function () {
                 processing(false);
             }
         })
+    };
+
+    function populateFileList(result) {
+        let totalBytes = 0
+        result.forEach(function (file) {
+            $('#file-list')
+                .append($('<div>')
+                    .append($('<a>', {
+                        text: file.name,
+                        href: '/Files/DownloadFile?path=' + encodeURIComponent(file.path)
+                    }))
+                )
+                .append($('<div>').text(file.size + ' bytes'))
+            totalBytes += file.size;
+        });
+
+        return totalBytes;
     }
 
     function clear() {
