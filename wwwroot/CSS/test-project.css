@@ -1,0 +1,45 @@
+﻿body {
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 300px auto;
+    grid-template-rows: 50px auto;
+    margin: 20px;
+    height: 600px;
+    width: 940px;
+    border: 1px solid;
+}
+
+.col {
+    height: 100%;
+    overflow-y: auto;
+    margin-left: 20px;
+}
+
+#file-list {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-row-gap: 10px;
+    grid-auto-rows: 30px;
+}
+
+.upload-grid {
+    display: grid;
+    grid-row-gap: 15px;
+}
+
+.upload-grid div {
+    align-self: center;
+}
+
+.upload-grid-buttons {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.folder-details {
+    display: flex;
+    gap: 10px;
+    margin: 10px;
+}

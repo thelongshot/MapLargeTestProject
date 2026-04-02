@@ -1,10 +1,50 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="CSS/test-project.css">
+    <link rel="stylesheet" href="CSS/jqtree.css">
     <meta charset="utf-8" />
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>File Navigation</title>
 </head>
 <body>
-    Hello World!
+    <div class="container">
+        <div class="folder-details">
+            <button id="upload-file-dialog">Upload File</button>
+            <button id="search-file-dialog">Search</button>
+        </div>
+        <div class="folder-details">
+            <span id="folder-path"></span>
+            <span id="file-count"></span>
+            <span id="folder-size"></span>
+        </div>
+        <div id="tree" data-url="/Files/GetFolders/" class="col"></div>
+        <div id="processing">
+            <p>Processing, please wait... <img src="Image/Ajax-loader.gif" /></p>
+        </div>
+        <div class="col" id="file-list"></div>
+    </div>
+    <dialog id="upload">
+        <div class="upload-grid">
+            <div>Upload file to <span id="upload-path"></span></div>
+            <div><input id="upload-file" type="file" title="Upload File"></div>
+            <div class="upload-grid-buttons">
+                <button id="submit-upload-modal">Submit</button>
+                <button id="cancel-upload-modal">Cancel</button>
+            </div>
+        </div>
+    </dialog>
+    <dialog id="search">
+        <div class="upload-grid">
+            <div><label for="search-files">Search:</label><input id="search-files" title="Upload File"></div>
+            <div class="upload-grid-buttons">
+                <button id="search-search-modal">Search</button>
+                <button id="cancel-search-modal">Cancel</button>
+            </div>
+        </div>
+    </dialog>
+    <script src="Script/jquery-4.0.0.min.js"></script>
+    <script src="Script/tree.jquery.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>
