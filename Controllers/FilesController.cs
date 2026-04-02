@@ -123,7 +123,7 @@ namespace TestProject.Controllers {
         {
             var files = new List<FileInternal>();
 
-            foreach (var file in Directory.EnumerateFiles(root).Where(m => m.Contains(searchTerm)))
+            foreach (var file in Directory.EnumerateFiles(root).Where(m => Path.GetFileName(m).IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) > 0))
             {
                 var fileInfo = new FileInfo(file);
                 var newFile = new FileInternal
