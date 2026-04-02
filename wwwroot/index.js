@@ -92,6 +92,7 @@ $(function () {
                     fileListContainer.empty();
                     if (result.length > 0) {
                         populateFileList(result);
+                        $('#folder-path').text('Search results for: ' + search);
                         $('#file-count').text('results: ' + result.length + ' files');
                     } else {
                         fileListContainer.append('No Files Found');
